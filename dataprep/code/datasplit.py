@@ -12,14 +12,14 @@ def main():
     "Main function to prepare data for training"
     # ---------- argument parsing ----------
     parser = argparse.ArgumentParser(description="Prepare data for rap‑vs‑pop training")
-    parser.add_argument("--input_csv", type=str, default="dataprep/train.csv", help="Path to the input CSV file")
+    parser.add_argument("--input_csv", type=str, default="data/train.csv", help="Path to the input CSV file")
     parser.add_argument("--test_size", type=float, default=0.2, help="Proportion of data to use for testing")
     parser.add_argument("--random_state", type=int, default=1234, help="Random seed for train‑test split")
     parser.add_argument("--vocab_size", type=int, default=5000, help="Maximum vocabulary size for tokenizer")
     parser.add_argument("--max_length", type=int, default=100, help="Maximum sequence length for padding")
     parser.add_argument("--embedding_dim", type=int, default=100, help="Dimension of word embeddings")
     parser.add_argument("--oov_token", type=str, default="<OOV>", help="Token for out‑of‑vocabulary words")
-    parser.add_argument("--glove_file", type=str, default="dataprep/glove.6B.100d.txt", help="Path to the GloVe embeddings file")
+    parser.add_argument("--glove_file", type=str, default="data/glove.6B.100d.txt", help="Path to the GloVe embeddings file")
     parser.add_argument("--output_dir", type=str, required=True,
                         help="Directory where the pre‑processed artefacts will be written")
     args = parser.parse_args()
