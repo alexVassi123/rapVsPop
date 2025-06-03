@@ -18,7 +18,6 @@ def main():
     parser.add_argument("--vocab_size", type=int, default=5000, help="Maximum vocabulary size for tokenizer")
     parser.add_argument("--max_length", type=int, default=100, help="Maximum sequence length for padding")
     parser.add_argument("--embedding_dim", type=int, default=100, help="Dimension of word embeddings")
-    parser.add_argument("--oov_token", type=str, default="<OOV>", help="Token for out‑of‑vocabulary words")
     parser.add_argument("--glove_file", type=str, default="data/glove.6B.100d.txt", help="Path to the GloVe embeddings file")
     parser.add_argument("--output_dir", type=str, required=True,
                         help="Directory where the pre‑processed artefacts will be written")
@@ -37,7 +36,7 @@ def main():
     vocab_size = args.vocab_size
     max_length = args.max_length
     embedding_dim = args.embedding_dim
-    oov_token = args.oov_token
+    oov_token = "<OOV>"
 
     tokenizer = Tokenizer(num_words=vocab_size, oov_token=oov_token)
     tokenizer.fit_on_texts(X_train)

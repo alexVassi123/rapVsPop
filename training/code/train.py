@@ -16,7 +16,7 @@ def main():
     "Main function to train the rap-vs-pop model"
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir",  type=str, required=True, help="Folder produced by datasplit")
-    parser.add_argument("--epochs", type=int, default=10,
+    parser.add_argument("--epochs", type=int, default=10, 
                         help="Number of training epochs")
     parser.add_argument("--output_dir", type=str, default="outputs/train",
                         help="Directory to write model and artefacts")
