@@ -1,22 +1,25 @@
 <template>
   <div class="lyrics-form">
     <h1>Lyrics Classifier</h1>
+    <h2> Rap Vs Pop </h2>
     <textarea v-model="lyrics" placeholder="Paste lyrics here..." rows="8"></textarea>
     <button @click="submitLyrics">Classify</button>
 
     <p v-if="loading">Loading...</p>
     <p v-if="result">Prediction: <strong>{{ result }}</strong></p>
+    <p v-if="result">Confidence: <strong>{{ confidence }}</strong></p>
   </div>
 </template>
 
 <script>
-import { classifyLyrics } from "@/services/api";
+import api from "../services/api.js";
 
 export default {
   data() {
     return {
       lyrics: "",
       result: null,
+      confidence: null,
       loading: false,
     };
   },
@@ -25,8 +28,9 @@ export default {
       this.loading = true;
       this.result = null;
       try {
-        const response = await classifyLyrics(this.lyrics);
-        this.result = response.label;
+        const response = await api.predictGenre(this.lyrics);
+        this.result = response.data.genre;
+        this.confidence = Number(response.data.confidence).toFixed(2);
       } catch (err) {
         this.result = "Error: Could not classify";
         console.error(err);
