@@ -44,6 +44,7 @@ def main():
     X_train_seq = tokenizer.texts_to_sequences(X_train)
     X_test_seq = tokenizer.texts_to_sequences(X_test)
 
+
     X_train_pad = pad_sequences(X_train_seq, maxlen=max_length, padding='post', truncating='post')
     X_test_pad = pad_sequences(X_test_seq, maxlen=max_length, padding='post', truncating='post')
 
@@ -71,6 +72,13 @@ def main():
     np.save(out_dir / "X_train_pad.npy", X_train_pad)
     np.save(out_dir / "y_train.npy", y_train)
     np.save(out_dir / "embedding_matrix.npy", embedding_matrix)
+
+
+    tokenizer_json = tokenizer.to_json()
+    with open(out_dir / "tokenizer.json", "w") as fp:
+        fp.write(tokenizer_json)
+
+
 
     meta = {
         "vocab_size": vocab_size,
