@@ -18,9 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# __file__ is inside: app/backend/
 current_file_dir = os.path.dirname(__file__)
-
 # Go up THREE levels: backend → app → rapVsPop → project root
 project_root = os.path.abspath(os.path.join(current_file_dir, "..", ".."))
 
@@ -32,15 +30,33 @@ model_path = os.path.join(
     "best_model.h5"
 )
 
+tokenizer_path = os.path.join(
+    project_root,
+    "inference",
+    "preprocessed_folder",
+    "tokenizer.json"
+)
+
+
 model = tf.keras.models.load_model(model_path)
+
+with open(tokenizer_path, 'r', encoding='utf-8') as f:
+    tokenizer_json_str = f.read()
+tokenizer = tokenizer_from_json(tokenizer_json_str)
 
 class LyricsRequest(BaseModel):
     lyrics: str
 
+
+
 @app.post("/predict")
 async def predict_genre(request: LyricsRequest):
     try:
-        prediction = model.predict([request.lyrics])
+
+        sequenced_lyrics = tokenizer.texts_to_sequences([request.lyrics])
+        padded_lyrics = pad_sequences(sequenced_lyrics, maxlen=100, padding='post', truncating='post')
+        
+        prediction = model.predict(padded_lyrics)
         
         # Assuming binary classification: 0=rap, 1=pop
         genre = "pop" if prediction[0][0] > 0.5 else "rap"
