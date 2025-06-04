@@ -2,14 +2,15 @@ $schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.jso
 
 name: data_split_and_preprocess_cli
 
-version: 1.0.0
+version: 0.3.0
 display_name: Data Split and Preprocess CLI
 type: command
 is_deterministic: true
 description: |
   This component splits the dataset into training and validation sets, preprocesses the data, and saves the results to the specified output path.
 
-environment: azureml:aml-Pillow-cli:0.1.0
+environment: azureml:aml-Pillow-cli:0.2.0
+code: ./code
 resources: 
   instance_count: 1
 
@@ -42,14 +43,6 @@ outputs:
     mode: rw_mount           
     description: Folder that will contain X_train_pad.npy, y_train.npy, embedding_matrix.npy, meta.json
 
-command: >
-  python datasplit.py
-    --input_csv ${{inputs.input_csv}}
-    --test_size ${{inputs.test_size}}
-    --random_state ${{inputs.random_state}}
-    --vocab_size ${{inputs.vocab_size}}
-    --max_length ${{inputs.max_length}}
-    --embedding_dim ${{inputs.embedding_dim}}
-    --glove_file ${{inputs.glove_file}}
-    --output_dir ${{outputs.output_dir}}
+command: >-
+  python datasplit.py --input_csv ${{inputs.input_csv}} --test_size ${{inputs.test_size}} --random_state ${{inputs.random_state}} --vocab_size ${{inputs.vocab_size}} --max_length ${{inputs.max_length}} --embedding_dim ${{inputs.embedding_dim}} --glove_file ${{inputs.glove_file}} --output_dir ${{outputs.output_dir}}
     

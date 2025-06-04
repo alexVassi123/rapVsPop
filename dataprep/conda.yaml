@@ -1,16 +1,16 @@
-name: rap-pop-env-training
+name: rap_pop_env_training
 channels:
   - conda-forge
 dependencies:
-  - python=3.11.*
+  - python=3.10.*
   - numpy
   - pip
   - scikit-learn
   - pandas
   - pip:
-    - tensorflow==2.16.*
-    - keras==2.16.*
     - inference-schema[numpy-support]==1.3.0
+    - tensorflow==2.15.*
+    - keras==2.15.*
     - xlrd==2.0.1
     - mlflow==1.26.1
     - azureml-mlflow==1.42.0

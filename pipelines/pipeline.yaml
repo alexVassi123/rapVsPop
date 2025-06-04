@@ -1,8 +1,63 @@
 $schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
 
 type: pipeline
-name: rap-versus-pop-pipeline
+name: rap-vs-pop--
 display_name: Rap Versus Pop Pipeline
 experiment_name: rap-versus-pop-experiment
 
+
+
 inputs:
+  input_csv:
+    type: uri_file
+    path: azureml:lyrics:1        
+  glove_file:
+    type: uri_file
+    path: azureml:glove-file:1     
+
+  vocab_size: 5000                    
+  max_length: 100
+  epochs: 10
+  
+
+outputs:
+  trained_model:
+    mode: upload
+  registration_details_folder:
+    mode: upload
+
+settings:
+  default_compute: azureml:cli-machine   
+
+jobs:
+
+  datasplit:
+    type: command
+    component: ../dataprep/datasplit.yaml
+    inputs:
+      input_csv:  ${{parent.inputs.input_csv}}
+      glove_file: ${{parent.inputs.glove_file}}
+      vocab_size: ${{parent.inputs.vocab_size}}
+      max_length: ${{parent.inputs.max_length}}
+    outputs:
+      output_dir:
+        mode: rw_mount
+
+  training:
+    type: command
+    component: ../training/training.yaml
+    inputs:
+      data_dir: ${{parent.jobs.datasplit.outputs.output_dir}}
+      epochs:   ${{parent.inputs.epochs}}
+    outputs:
+      output_dir: ${{parent.outputs.trained_model}}
+  
+  register:
+    type: command
+    component: azureml://registries/azureml/components/register_model/versions/0.0.12
+    inputs:
+      model_name: rap-versus-pop-classifier
+      model_path: ${{parent.jobs.training.outputs.output_dir}}
+      model_type: custom_model
+    outputs:
+      registration_details_folder: ${{parent.outputs.registration_details_folder}}

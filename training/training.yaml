@@ -1,12 +1,12 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
-version: 0.1.0
+version: 0.2.0
 type: command
 name: training_cli
 display_name: Training the Rap Versus Pop AI Model 
 description: Trains an AI model by inputting a lot of data and outputting a trained model.
-environment: azureml:aml-Pillow-cli:0.1.0
+environment: azureml:aml-Pillow-cli:0.2.0
 
-code: "./code"
+code: ./code
 
 inputs:
   epochs:
@@ -21,9 +21,6 @@ outputs:
     type: uri_folder
     description: Folder where the best model and final model will be saved.
 
-command: >
-  python train.py
-  --epochs ${{inputs.epochs}}
-  --data_dir ${{inputs.data_dir}}
-  --output_dir ${{outputs.output_dir}}
+command: >-
+  python train.py --epochs ${{inputs.epochs}} --data_dir ${{inputs.data_dir}} --output_dir ${{outputs.output_dir}}
 
