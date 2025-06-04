@@ -5,3 +5,6 @@ scikit-learn
 argparse
 tensorflow
 pathlib
+fastapi
+uvicorn
+pydantic
