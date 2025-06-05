@@ -1,10 +1,10 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
 version: 0.2.0
 type: command
-name: training_cli
+name: training_cli_4
 display_name: Training the Rap Versus Pop AI Model 
 description: Trains an AI model by inputting a lot of data and outputting a trained model.
-environment: azureml:aml-Pillow-cli:0.2.0
+environment: azureml:aml-data-split:0.2.0
 
 code: ./code
 

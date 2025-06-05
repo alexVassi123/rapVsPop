@@ -1,6 +1,6 @@
 $schema: https://azuremlschemas.azureedge.net/latest/environment.schema.json
-description: Custom environment
-name: aml-Pillow-cli
+description: Custom environment data splitting
+name: aml-data-split
 version: 0.2.0
 
 conda_file: ../dataprep/conda.yaml
@@ -8,4 +8,6 @@ image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04:latest
 os_type: linux
 
 tags:
-  Pillow: 10.0.1
+  python: 3.10.*
+  scikit-learn: latest
+  pandas: latest
