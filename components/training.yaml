@@ -1,0 +1,26 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+version: 0.2.0
+type: command
+name: training
+display_name: Training the Rap Versus Pop AI Model 
+description: Trains an AI model by inputting a lot of data and outputting a trained model.
+environment: azureml:aml-generic-env:0.2.0
+
+code: ./code
+
+inputs:
+  epochs:
+    type: integer
+    description: Number of epochs to train the model.
+  data_dir:
+    type: uri_folder
+    description: Folder produced by datasplit step.
+  
+outputs:
+  output_dir:
+    type: uri_folder
+    description: Folder where the best model and final model will be saved.
+
+command: >-
+  python train.py --epochs ${{inputs.epochs}} --data_dir ${{inputs.data_dir}} --output_dir ${{outputs.output_dir}}
+
