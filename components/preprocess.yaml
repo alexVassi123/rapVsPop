@@ -1,0 +1,47 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+
+name: preprocess
+version: 1.0.6
+display_name: Preprocess Data Component
+type: command
+
+description: |
+  Tokenizes text, pads sequences, builds embedding matrix from GloVe, and stores training/test tensors and tokenizer config.
+
+environment: azureml:aml-generic-env:0.2.0
+code: ./code
+
+resources:
+  instance_count: 1
+
+inputs:
+  data_dir:
+    type: uri_folder
+    description: Folder with X_train.csv, X_test.csv, y_train.csv, y_test.csv
+  vocab_size:
+    type: integer
+    default: 5000
+  max_length:
+    type: integer
+    default: 100
+  embedding_dim:
+    type: integer
+    default: 100
+  glove_file:
+    type: uri_file
+    description: Path to GloVe embedding file (e.g., glove.6B.100d.txt)
+
+outputs:
+  output_dir:
+    type: uri_folder
+    mode: rw_mount
+    description: Directory to save X_train_pad.npy, y_train.npy, embedding_matrix.npy, tokenizer.json, meta.json
+
+command: >-
+  python preprocess.py
+  --data_dir ${{inputs.data_dir}}
+  --vocab_size ${{inputs.vocab_size}}
+  --max_length ${{inputs.max_length}}
+  --embedding_dim ${{inputs.embedding_dim}}
+  --glove_file ${{inputs.glove_file}}
+  --output_dir ${{outputs.output_dir}}
