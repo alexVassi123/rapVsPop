@@ -1,9 +1,9 @@
 $schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
 
 type: pipeline
-name: rap-vs-pop-v20
+name: rap-vs-pop-v22
 display_name: Rap Versus Pop Pipeline
-experiment_name: rap-versus-pop-experiment
+experiment_name: rap-versus-pop-experiment-1
 
 
 

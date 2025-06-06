@@ -1,16 +1,23 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
 
 name: datasplit
-version: 1.0.6
+version: 1.0.8
 display_name: Data Split Component
 type: command
 
 description: |
   Splits the dataset into training and test sets and saves CSVs (X_train, X_test, y_train, y_test) in the output folder.
 
-environment: azureml:aml-generic-env:0.2.0
+environment: azureml:aml-generic-env-1:0.2.0
 
 code: ./code
+
+command:
+  'python datasplit.py
+  --input_csv ${{inputs.input_csv}}
+  --test_size ${{inputs.test_size}}
+  --random_state ${{inputs.random_state}}
+  --output_dir ${{outputs.output_dir}}'
 
 resources:
   instance_count: 1
@@ -32,9 +39,4 @@ outputs:
     mode: rw_mount
     description: Folder with X_train.csv, X_test.csv, y_train.csv, y_test.csv
 
-command: >-
-  python datasplit.py
-  --input_csv ${{inputs.input_csv}}
-  --test_size ${{inputs.test_size}}
-  --random_state ${{inputs.random_state}}
-  --output_dir ${{outputs.output_dir}}
+

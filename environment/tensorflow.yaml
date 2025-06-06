@@ -1,6 +1,6 @@
 $schema: https://azuremlschemas.azureedge.net/latest/environment.schema.json
 description: Generic environment for Azure ML tasks
-name: aml-generic-env
+name: aml-generic-env-1
 version: 0.2.0
 
 conda_file: ../components/conda.yaml
