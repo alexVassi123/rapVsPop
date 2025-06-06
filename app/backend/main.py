@@ -18,25 +18,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-current_file_dir = os.path.dirname(__file__)
-# Go up THREE levels: backend → app → rapVsPop → project root
-project_root = os.path.abspath(os.path.join(current_file_dir, "..", ".."))
 
-model_path = os.path.join(
-    project_root,
-    "inference",
-    "rap-versus-pop-classifier",
-    "INPUT_model_path",
-    "best_model.h5"
-)
-
-tokenizer_path = os.path.join(
-    project_root,
-    "inference",
-    "preprocessed_folder",
-    "tokenizer.json"
-)
-
+model_path = os.path.join("/app", "inference", "rap-versus-pop-classifier", "INPUT_model_path", "best_model.h5")
+tokenizer_path = os.path.join("/app", "inference", "preprocessed_folder", "tokenizer.json")
 
 model = tf.keras.models.load_model(model_path)
 
