@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 import argparse
 import os
 
+
 def main():
     parser = argparse.ArgumentParser(description="Split data into training and test sets")
     parser.add_argument("--input_csv", type=str, default="data/train.csv", help="Path to the input CSV file")
@@ -26,4 +27,5 @@ def main():
     y_test.to_csv(f"{args.output_dir}/y_test.csv", index=False)
 
 if __name__ == "__main__":
+    print("Starting datasplit step...")
     main()
