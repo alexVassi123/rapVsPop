@@ -1,7 +1,7 @@
 $schema: https://azuremlschemas.azureedge.net/latest/pipelineJob.schema.json
 
 type: pipeline
-name: rap-vs-pop-v15
+name: rap-vs-pop-v20
 display_name: Rap Versus Pop Pipeline
 experiment_name: rap-versus-pop-experiment
 
@@ -32,7 +32,7 @@ settings:
 jobs:
   datasplit:
     type: command
-    component: ../dataprep/data_split.yaml
+    component: ../components/data_split.yaml
     inputs:
       input_csv: ${{parent.inputs.input_csv}}
       test_size: 0.2
@@ -40,7 +40,7 @@ jobs:
 
   preprocess:
     type: command
-    component: ../dataprep/preprocess.yaml
+    component: ../components/preprocess.yaml
     inputs:
       data_dir: ${{parent.jobs.datasplit.outputs.output_dir}}
       glove_file: ${{parent.inputs.glove_file}}
@@ -49,7 +49,7 @@ jobs:
 
   training:
     type: command
-    component: ../training/training.yaml
+    component: ../components/training.yaml
     inputs:
       data_dir: ${{parent.jobs.preprocess.outputs.output_dir}}
       epochs:   ${{parent.inputs.epochs}}
