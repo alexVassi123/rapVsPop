@@ -33,7 +33,7 @@ class LyricsRequest(BaseModel):
 
 
 
-@app.post("/api/predict")
+@app.post("/predict")
 async def predict_genre(request: LyricsRequest):
     try:
 
