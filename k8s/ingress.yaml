@@ -4,27 +4,26 @@ metadata:
   name: genre-classifier-ingress
   namespace: genre-classifier-ns
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   rules:
   - http:
       paths:
-      - path: /docs(/|$)(.*)
+      - path: /docs
         pathType: Prefix
         backend:
           service:
             name: backend-api
             port:
-              number: 80
-      - path: /api(/|$)(.*)
+              number: 8000
+      - path: /api
         pathType: Prefix
         backend:
           service:
             name: backend-api
             port:
-              number: 80
-      - path: /(.*)
+              number: 8000
+      - path: /
         pathType: Prefix
         backend:
           service:
