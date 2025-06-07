@@ -13,7 +13,7 @@ const apiClient = axios.create({
 
 export default {
   predictGenre(lyrics) {
-    return apiClient.post('/api/predict', { lyrics });
+    return apiClient.post('/predict', { lyrics });
   },
   healthCheck() {
     return apiClient.get('/health');
