@@ -6,16 +6,24 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  ingressClassName: nginx
   rules:
   - http:
       paths:
+      - path: /docs(/|$)(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-api
+            port:
+              number: 80
       - path: /api(/|$)(.*)
         pathType: Prefix
         backend:
           service:
             name: backend-api
             port:
-              number: 8000
+              number: 80
       - path: /(.*)
         pathType: Prefix
         backend:

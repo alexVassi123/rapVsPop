@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend-api
-          image: backend-svc/backend-api:latest
+          image: ferro21/backend-api:latest
           ports:
             - containerPort: 8000
 ---

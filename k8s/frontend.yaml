@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: frontend-svc/frontend-image:latest
+          image: ferro21/frontend-image:latest
           ports:
             - containerPort: 80
 ---
