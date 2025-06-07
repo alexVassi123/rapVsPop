@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const apiClient = axios.create({
   baseURL: process.env.NODE_ENV === 'development' 
-    ? 'http://localhost:8000' 
-    : '/api', // When deployed, Nginx will handle /api
+  ? 'http://localhost:8000/'
+  : '/api',
   withCredentials: false,
   headers: {
     'Accept': 'application/json',
