@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: genre-classifier-ns
 spec:
   replicas: 1
   selector:
@@ -15,15 +14,16 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ferro21/frontend-image:latest
+          image: ferro21/frontend:latest
           ports:
             - containerPort: 80
+              protocol: TCP
+          resources: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: frontend
-  namespace: genre-classifier-ns
 spec:
   selector:
     app: frontend
@@ -31,4 +31,3 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: ClusterIP

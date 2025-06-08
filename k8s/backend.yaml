@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-api
-  namespace: genre-classifier-ns
 spec:
   replicas: 1
   selector:
@@ -15,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-api
-          image: ferro21/backend-api:latest
+          image: ferro21/backend:latest
           ports:
             - containerPort: 8000
 ---
@@ -23,7 +22,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend-api
-  namespace: genre-classifier-ns
 spec:
   selector:
     app: backend-api
@@ -31,4 +29,3 @@ spec:
     - protocol: TCP
       port: 8000
       targetPort: 8000
-  type: ClusterIP

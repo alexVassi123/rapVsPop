@@ -1,4 +1,4 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, HTTPException, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import tensorflow as tf
@@ -31,9 +31,9 @@ tokenizer = tokenizer_from_json(tokenizer_json_str)
 class LyricsRequest(BaseModel):
     lyrics: str
 
+api_router = APIRouter()
 
-
-@app.post("/predict")
+@api_router.post("/predict")
 async def predict_genre(request: LyricsRequest):
     try:
 
@@ -53,6 +53,8 @@ async def predict_genre(request: LyricsRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/health")
+@api_router.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+app.include_router(api_router)

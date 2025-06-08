@@ -1,28 +1,16 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: genre-classifier-ingress
-  namespace: genre-classifier-ns
+  name: ingress-router
+  namespace: genre-cluster
   annotations:
+    traefik.ingress.kubernetes.io/router.priority: "9"
 spec:
   ingressClassName: traefik
   rules:
-  - http:
+  - host: localhost
+    http:
       paths:
-      - path: /docs
-        pathType: Prefix
-        backend:
-          service:
-            name: backend-api
-            port:
-              number: 8000
-      - path: /api
-        pathType: Prefix
-        backend:
-          service:
-            name: backend-api
-            port:
-              number: 8000
       - path: /
         pathType: Prefix
         backend:
@@ -30,3 +18,10 @@ spec:
             name: frontend
             port:
               number: 80
+      - path: /health
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-api
+            port:
+              number: 8000
