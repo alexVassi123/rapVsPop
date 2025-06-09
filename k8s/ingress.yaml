@@ -11,7 +11,7 @@ spec:
   - host: localhost
     http:
       paths:
-      - path: /
+      - path: /home
         pathType: Prefix
         backend:
           service:
@@ -19,6 +19,13 @@ spec:
             port:
               number: 80
       - path: /health
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-api
+            port:
+              number: 8000
+      - path: /api
         pathType: Prefix
         backend:
           service:

@@ -17,7 +17,8 @@ FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Copy built frontend from previous stage
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html/home
 
 # Optional: Add custom NGINX config if needed
 COPY ../nginx/nginx.conf /etc/nginx/conf.d/default.conf
+

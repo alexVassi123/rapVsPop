@@ -1,6 +1,6 @@
 module.exports = {
   // Base URL (adjust if deploying to subdirectory)
-  publicPath: '/',
+  publicPath: '/home/',
   
   devServer: {
     proxy: {

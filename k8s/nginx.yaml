@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: ferro21/nginx:latest
+          image: ferro21/nginx-server-v9:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80

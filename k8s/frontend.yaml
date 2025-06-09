@@ -14,11 +14,12 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ferro21/frontend:latest
+          image: ferro21/vue-app-1:latest
           ports:
             - containerPort: 80
               protocol: TCP
           resources: {}
+          
 ---
 apiVersion: v1
 kind: Service
