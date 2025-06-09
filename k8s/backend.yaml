@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-api
-          image: ferro21/backend:latest
+          image: vasale01/backend:latest
           ports:
             - containerPort: 8000
 ---
