@@ -8,7 +8,7 @@ import json
 import numpy as np
 import os
 
-app = FastAPI()
+app = FastAPI(root_path='/api')
 
 # CORS configuration
 app.add_middleware(
