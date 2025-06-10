@@ -77,9 +77,9 @@ jobs:
             az extension add -n ml -y
             az configure --defaults group=${{secrets.RG}} workspace=${{secrets.WG}} location=$LOCATION
 
-            az ml component create -f ./components/code/datasplit.yaml
-            az ml component create -f ./components/code/preprocess.yaml
-            az ml component create -f ./components/code/training.yaml
+            az ml component create -f ./components/code/datasplit.yaml --set version=${{github.rund_id}}
+            az ml component create -f ./components/code/preprocess.yaml --set version=${{github.run_id}}
+            az ml component create -f ./components/code/training.yaml --set version=${{github.run_id}}
             
  
       - name: Run Pipeline
