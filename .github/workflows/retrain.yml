@@ -41,10 +41,10 @@ jobs:
             
             az extension add -n ml -y
 
-            az ml compute show -n cpu-cluster -g ${{ secrets.RG }} -w ${{ secrets.WG }} \
+            az ml compute show -n cpu-cluster -g ${{ secrets.RG }} -w project-alex \
               || az ml compute create -n cpu-cluster \
                   -g ${{ secrets.RG }} \
-                  -w ${{ secrets.WG }} \
+                  -w project-alex \
                   --type amlcompute \
                   --min-instances 0 \
                   --max-instances 4 \
