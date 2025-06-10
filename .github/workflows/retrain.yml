@@ -40,7 +40,7 @@ jobs:
             
             az extension add -n ml -y
 
-            az ml compute create -f ./environment/compute.yaml
+            az ml compute create -f ./environment/compute.yaml -g ${{ secrets.RG }} -w project-alex
 
             az ml job create \
               --file ./pipelines/pipeline.yaml \
