@@ -96,7 +96,7 @@ jobs:
               -w ${{secrets.WG}} \
               --set compute=cli-machine \
               --set experiment_name=rap-vs-pop-retrain \
-              --set name = rap-vs-pop-classifier-${{ github.sha }} \
+              --name = rap-vs-pop-classifier-${{ github.sha }} \
               --stream
 
       - name: Compute Stop
