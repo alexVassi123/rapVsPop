@@ -12,6 +12,8 @@ spec:
       labels:
         app: backend-api
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: backend-api
           image: vasale01/backend:latest

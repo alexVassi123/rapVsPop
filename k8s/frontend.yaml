@@ -12,9 +12,11 @@ spec:
       labels:
         app: frontend
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: frontend
-          image: ferro21/frontend-page:latest
+          image: vasale01/frontend:latest
           ports:
             - containerPort: 80
               protocol: TCP

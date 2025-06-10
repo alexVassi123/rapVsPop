@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./app/backend/Dockerfile
-    image: backend-svc/backend-api:latest
+    image: vasale01/backend:latest
     ports:
       - "8000:8000"
 
@@ -16,7 +16,7 @@ services:
     build: 
       context: .
       dockerfile: ./app/frontend/Dockerfile
-    image: frontend-svc/frontend-image:latest
+    image: vasale01/frontend:latest
     ports:
       - "8080:80"
     depends_on:
@@ -28,7 +28,7 @@ services:
     build: 
       context: .
       dockerfile: ./nginx/Dockerfile
-    image: nginx-svc/nginx:latest
+    image: vasale01/nginx:latest
     ports: 
       - "80:80"
     depends_on:
