@@ -34,7 +34,16 @@ services:
     depends_on:
       - frontend
       - backend-api
-
+    
+  default-backend:
+    networks:
+      - web
+    build: 
+      context: .
+      dockerfile: ./app/default-backend/Dockerfile
+    image: vasale01/default-backend:latest
+    ports:
+      - "81:81"
 
 networks:
   web:

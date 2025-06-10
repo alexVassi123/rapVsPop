@@ -23,11 +23,13 @@ jobs:
 
     - name: docker compose build
       run: |
-        docker-compose build
+        docker compose build
 
     - name: docker compose push
       run: |
-        docker-compose push
+        docker compose push
+    
+  
 
     - name: Set up kubectl
       run: |
