@@ -27,7 +27,7 @@ outputs:
     mode: upload
 
 settings:
-  default_compute: azureml:cli-machine-ferit   
+  default_compute: azureml:cli-machine  
 
 jobs:
   datasplit:
