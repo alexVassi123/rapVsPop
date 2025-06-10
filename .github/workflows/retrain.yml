@@ -11,6 +11,12 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
+    paths:
+      - 'pipelines/**'
+      - 'components/**'
+      - 'environment/**'
+      - '.github/workflows/retrain.yml'
+      - 'data/**'
   pull_request:
     branches: [ "main" ]
 
