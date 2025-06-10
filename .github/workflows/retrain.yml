@@ -38,24 +38,71 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }} 
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     
-      - name: Ensure compute & submit pipeline via Azure CLI action
-        uses: azure/cli@v1
+      - name: Compute Start
+        uses: azure/cli@v2.1.0
         with:
           azcliversion: 'latest'
           inlineScript: |
             
             az extension add -n ml -y
+            az configure --defaults group=${{secrets.RG}} workspace=${{secrets.WG}} location=$LOCATION
+            az ml compute create -f ./environment/compute.yaml 
+            az ml compute start --name cli-machine
+    
 
-            az ml compute create -f ./environment/compute.yaml -g ${{ secrets.RG }} -w ${{secrets.WG}}
+      - name: Azure - environment setup
+        uses: azure/cli@v2.1.0
+        with: 
+          azcliversion: 'latest'
+          inlineScript: |
+            az extension add -n ml -y
+            az configure --defaults group=${{secrets.RG}} workspace=${{secrets.WG}} location=$LOCATION
+
+            az ml environment create -f ./environment/tensorflow.yaml
+        continue-on-error: true
+
+      - name: Azure - component setup
+        uses: azure/cli@v2.1.0
+        with:
+          azcliversion: 'latest'
+          inlineScript: |
+            az extension add -n ml -y
+            az configure --defaults group=${{secrets.RG}} workspace=${{secrets.WG}} location=$LOCATION
+
+            az ml component create -f ./components/code/datasplit.yaml
+            az ml component create -f ./components/code/preprocess.yaml
+            az ml component create -f ./components/code/training.yaml
+            
  
+      - name: Run Pipeline
+        uses : azure/cli@v2.1.0
+        with:  
+          azcliversion: 'latest'
+          inlineScript: |
+            az extension add -n ml -y
+            az configure --defaults group=${{secrets.RG}} workspace=${{secrets.WG}} location=$LOCATION
+
             az ml job create \
               --file ./pipelines/pipeline.yaml \
               -g ${{ secrets.RG }} \
               -w ${{secrets.WG}} \
               --set compute=cli-machine \
-              --set experiment_name=rap-vs-pop-retrain
+              --set experiment_name=rap-vs-pop-retrain \
+              --set name = rap-vs-pop-classifier-${{github.sha}}-${{github.run_id}} \
+              --stream
+
+      - name: Compute Stop
+        uses: azure/cli@v2.1.0
+        with:
+          azcliversion: 'latest'
+          inlineScript: |
+            az extension add -n ml -y
+            az configure --defaults group=${{secrets.RG}} workspace=${{secrets.WG}} location=$LOCATION
+            az ml compute stop --name cli-machine
+        continue-on-error: true
+            
         
-            az ml compute delete --name cli-machine -g ${{ secrets.RG }} -w ${{secrets.WG}} --yes
+        
   
 
 
