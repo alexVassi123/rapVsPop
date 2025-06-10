@@ -37,24 +37,16 @@ jobs:
         with:
           azcliversion: 'latest'
           inlineScript: |
-            az config set extension.dynamic_install_allow_preview=true
             
             az extension add -n ml -y
 
-            az ml compute show -n cpu-cluster -g ${{ secrets.RG }} -w project-alex \
-              || az ml compute create -n cpu-compute \
-                  -g ${{ secrets.RG }} \
-                  -w project-alex \
-                  --type compute-instance \
-                  --min-instances 0 \
-                  --max-instances 4 \
-                  --idle-time-before-scale-down 30
+            az ml compute create -f ./environment/compute.yaml
 
             az ml job create \
               --file ./pipelines/pipeline.yaml \
               -g ${{ secrets.RG }} \
               -w project-alex \
-              --set compute=cpu-cluster \
+              --set compute=cli-machine \
               --set experiment_name=rap-vs-pop-retrain
         
   
