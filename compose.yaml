@@ -40,8 +40,8 @@ services:
       - web
     build: 
       context: .
-      dockerfile: ./app/default-backend/Dockerfile
-    image: vasale01/default-backend:latest
+      dockerfile: ./app/defaultbackend/Dockerfile
+    image: vasale01/defaultbackend:latest
     ports:
       - "81:81"
 

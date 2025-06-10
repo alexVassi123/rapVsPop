@@ -77,7 +77,7 @@ jobs:
             az extension add -n ml -y
             az configure --defaults group=${{secrets.RG}} workspace=${{secrets.WG}} location=$LOCATION
 
-            az ml component create -f ./components/datasplit.yaml --set version=${{github.run_id}}
+            az ml component create -f ./components/data_split.yaml --set version=${{github.run_id}}
             az ml component create -f ./components/preprocess.yaml --set version=${{github.run_id}}
             az ml component create -f ./components/training.yaml --set version=${{github.run_id}}
             

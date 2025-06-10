@@ -30,13 +30,3 @@ jobs:
         docker compose push
     
   
-
-    - name: Set up kubectl
-      run: |
-        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > kubeconfig
-        export KUBECONFIG=$PWD/kubeconfig
-
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl set image deployment/frontend-deployment frontend=${{ secrets.DOCKER_USERNAME }}/frontend:${{ env.IMAGE_TAG }} -n default
-        kubectl set image deployment/backend-deployment backend=${{ secrets.DOCKER_USERNAME }}/backend:${{ env.IMAGE_TAG }} -n default
