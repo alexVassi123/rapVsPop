@@ -51,9 +51,9 @@ jobs:
                   --idle-time-before-scale-down 30
 
             az ml job create \
-              --file ./pipeline/pipeline.yaml \
+              --file ./pipelines/pipeline.yaml \
               -g ${{ secrets.RG }} \
-              -w ${{ secrets.WS }} \
+              -w project-alex \
               --set compute=cpu-cluster \
               --set experiment_name=rap-vs-pop-retrain
         
