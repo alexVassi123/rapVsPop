@@ -12,11 +12,13 @@ spec:
       labels:
         app: default-backend
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
-      - name: default-backend
-        image: ferro21/fallback-page:latest
-        ports:
-        - containerPort: 80
+        - name: default-backend
+          image: vasale01/fallback:latest
+          ports:
+          - containerPort: 80
 ---
 apiVersion: v1
 kind: Service

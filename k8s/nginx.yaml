@@ -12,9 +12,11 @@ spec:
       labels:
         app: nginx
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: nginx
-          image: ferro21/nginx-image-7:latest
+          image: vasale01/nginx:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
