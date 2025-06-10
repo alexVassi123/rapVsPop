@@ -40,15 +40,16 @@ jobs:
             
             az extension add -n ml -y
 
-            az ml compute create -f ./environment/compute.yaml -g ${{ secrets.RG }} -w project-alex
-
+            az ml compute create -f ./environment/compute.yaml -g ${{ secrets.RG }} -w ${{secrets.WG}}
+ 
             az ml job create \
               --file ./pipelines/pipeline.yaml \
               -g ${{ secrets.RG }} \
-              -w project-alex \
+              -w ${{secrets.WG}} \
               --set compute=cli-machine \
               --set experiment_name=rap-vs-pop-retrain
         
+            az ml compute delete --name cli-machine -g ${{ secrets.RG }} -w ${{secrets.WG}} --yes
   
 
 
