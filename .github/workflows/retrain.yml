@@ -47,7 +47,15 @@ jobs:
             az extension add -n ml -y
             az configure --defaults group=${{secrets.RG}} workspace=${{secrets.WG}} location=$LOCATION
             az ml compute create -f ./environment/compute.yaml 
-            az ml compute start --name cli-machine
+            
+            # Start only if the compute instance is currently Stopped
+           
+            STATE=$(az ml compute show --name cli-machine --query state -o tsv || echo "Unknown")
+            if [ "$STATE" = "Stopped" ]; then
+              az ml compute start --name cli-machine
+            else
+              echo "Compute instance is already $STATE — skipping start."
+            fi
     
 
       - name: Azure - environment setup
