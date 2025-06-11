@@ -45,11 +45,12 @@ async def predict_genre(request: LyricsRequest):
         # Assuming binary classification: 0=rap, 1=pop
         genre = "pop" if prediction[0][0] > 0.5 else "rap"
         confidence = float(prediction[0][0] if genre == "pop" else 1 - prediction[0][0])
-        print(f"Prediction: {genre}, Confidence: {confidence}, this works git action")
+
         
         return {
             "genre": genre,
-            "confidence": confidence
+            "confidence": confidence,
+            "message": "Prediction successful"
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
