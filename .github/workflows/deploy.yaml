@@ -44,7 +44,7 @@ jobs:
       
       - name: checkout
         run : |
-          kubectl get pods -n genre-cluster
+          kubectl get deployments -n genre-cluster
   
       - name: Deploy to Kubernetes
         run: |
