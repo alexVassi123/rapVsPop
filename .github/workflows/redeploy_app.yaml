@@ -116,3 +116,4 @@ jobs:
         kubectl rollout restart deployment/default-backend
         kubectl rollout restart deployment/nginx
 
+###

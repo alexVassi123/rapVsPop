@@ -11,7 +11,9 @@ on:
       - 'components/**'
       - 'environment/**'
       - '.github/workflows/retrain.yml'
+      - ".github/workflows/deploy.yaml"
       - 'data/**'
+  
   pull_request:
     branches: [ "main" ]
 
