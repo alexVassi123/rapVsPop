@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ferro21/frontend:latest
+          image: vasale01/frontend:latest
           ports:
             - containerPort: 80
               protocol: TCP

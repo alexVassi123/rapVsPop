@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: default-backend
-          image: ferro21/defaultbackend:latest
+          image: vasale01/defaultbackend:latest
           ports:
           - containerPort: 80
 ---
