@@ -1,4 +1,4 @@
-FROM node:20-alpine as build
+FROM node:20-alpine as builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ FROM nginx:alpine
 
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY --from=build /app/dist /usr/share/nginx/html/home
+COPY --from=builder /app/dist /usr/share/nginx/html/home
 
-COPY ../nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
