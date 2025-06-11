@@ -14,7 +14,7 @@ on:
       - "app/defaultbackend/**"
       - "k8s/**"
       - "nginx/**"
-      - "docker-compose.yaml"
+      - "compose.yaml"
       - ".github/workflows/redeploy_app.yaml"
 
 # ────────────────────
