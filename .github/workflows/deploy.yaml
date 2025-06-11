@@ -6,8 +6,7 @@ permissions:
 on:
   workflow_run:
     workflows: ["Retrain Model"]
-    types:
-      - ["completed"]
+    types: completed
 jobs:
   download:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
