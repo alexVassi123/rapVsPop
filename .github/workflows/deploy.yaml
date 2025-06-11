@@ -4,10 +4,10 @@ permissions:
   contents: read
 
 on:
-  #workflow_run:
-    #workflows: ["Retrain Model"]
-    #types:
-    #  - completed
+  workflow_run:
+    workflows: ["Retrain Model"]
+    types:
+      - completed
   push:
     branches: [ "main" ]
     paths:
@@ -19,37 +19,35 @@ on:
 jobs:
   redeploy:
     runs-on: self-hosted
-    # needs: download
-    # env: 
-    #   IMAGE_TAG: ${{ github.sha }}
-    # steps:
-    #   - name: Check out repository
-    #     uses: actions/checkout@v4
+#    needs: download
+    env: 
+      IMAGE_TAG: ${{ github.sha }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
         
-    #   - name: Docker login
-    #     uses: docker/login-action@v2
-    #     with:
-    #       username: ${{ secrets.DOCKER_USERNAME }}
-    #       password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    #   - name: Build and push Docker image
-    #     run: |
-    #       docker build -t vasale01/backend:latest -f ./app/backend/Dockerfile .
-    #       docker push vasale01/backend:latest
-    steps:   
+      - name: Build and push Docker image
+        run: |
+          docker build -t vasale01/backend:${{github.sha}} -f ./app/backend/Dockerfile .
+          docker push vasale01/backend:${{github.sha}}
+
       - name: set up kubectl
         uses: azure/k8s-set-context@v1
         with: 
           kubeconfig: ${{ secrets.KUBECONFIG }}
-      
-      - name: checkout
-        run : |
-          kubectl get deployments -n genre-cluster
-        
+
       - name: apply manifests
         run: |
           kubectl apply -f k8s/backend.yaml
   
       - name: Deploy to Kubernetes
         run: |
-          kubectl rollout restart deployment backend-api -n genre-cluster
+          kubectl set image deployment/backend-api \
+            api=vasale01/backend:${IMAGE_TAG}
+          kubectl rollout status deployment/backend-api
