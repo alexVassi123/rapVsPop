@@ -1,10 +1,4 @@
 name: Runtime deploy to k3d
-
-# ────────────────────
-# 1. Trigger
-# ────────────────────
-#   • Fires on every merge/push to main
-#   • But only if frontend, backend, k8s manifests or env-files changed
 on:
   push:
     branches: [main]
@@ -16,9 +10,6 @@ on:
       - "nginx/**"
       - "compose.yaml"
       - ".github/workflows/redeploy_app.yaml"
-
-# ────────────────────
-
 jobs:
   filter:
     runs-on: ubuntu-latest
