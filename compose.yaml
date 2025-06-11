@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./app/backend/Dockerfile
-    image: "vasale01/backend:$${IMAGE_TAG:-latest}"
+    image: "vasale01/backend:${IMAGE_TAG:-latest}"
     ports:
       - "8000:8000"
 
@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: ./app/frontend/Dockerfile
-    image: "vasale01/frontend:$${IMAGE_TAG:-latest}"
+    image: "vasale01/frontend:${IMAGE_TAG:-latest}"
     ports:
       - "8080:80"
     depends_on:
@@ -28,7 +28,7 @@ services:
     build: 
       context: .
       dockerfile: ./nginx/Dockerfile
-    image: "vasale01/nginx:$${IMAGE_TAG:-latest}"
+    image: "vasale01/nginx:${IMAGE_TAG:-latest}"
     ports: 
       - "80:80"
     depends_on:
@@ -41,7 +41,7 @@ services:
     build: 
       context: .
       dockerfile: ./app/defaultbackend/Dockerfile
-    image: "vasale01/defaultbackend:$${IMAGE_TAG:-latest}"
+    image: "vasale01/defaultbackend:${IMAGE_TAG:-latest}"
     ports:
       - "81:81"
 
