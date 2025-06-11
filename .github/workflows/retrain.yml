@@ -139,7 +139,7 @@ jobs:
             echo "Found model version: $VERSION"
 
             az ml model download \
-              -n  \
+              -n  rap-versus-pop-classifier\
               -v $VERSION \
               --output-file inference/rapversus-pop-classifier/best_model.h5
             
