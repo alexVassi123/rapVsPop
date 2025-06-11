@@ -16,7 +16,7 @@ services:
     build:
       context: .
       dockerfile: ./app/frontend/Dockerfile
-    image: "vasale01/frontend:$${IMAGE_TAG:-latest}"
+    image: vasale01/frontend:$${IMAGE_TAG:-latest}
     ports:
       - "8080:80"
     depends_on:
