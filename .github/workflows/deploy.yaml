@@ -49,5 +49,5 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl set image deployment/backend-api \
-            api=vasale01/backend:${IMAGE_TAG}
+            backend-api=vasale01/backend:${IMAGE_TAG}
           kubectl rollout status deployment/backend-api
