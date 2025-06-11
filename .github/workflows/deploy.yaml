@@ -50,6 +50,7 @@ jobs:
 
   redeploy:
     runs-on: self-hosted
+    needs: download
     env: 
       IMAGE_TAG: ${{ github.sha }}
     steps:
