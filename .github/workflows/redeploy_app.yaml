@@ -33,36 +33,19 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build & push backend image
-     #if: ${{ github.event.head_commit.modified && contains(join(github.event.head_commit.modified, ','), 'app/backend/') }}
-      run: |
-        docker build -t vasale01/backend:${IMAGE_TAG} -f app/backend/Dockerfile .
-        docker push vasale01/backend:${IMAGE_TAG}
-  
-    - name: Build & push frontend image
-    #  if: ${{ github.event.head_commit.modified && contains(join(github.event.head_commit.modified, ','), 'app/frontend/') }}
-      run: |
 
+    - name: run npm install & build for frontend
+      run: |
         cd app/frontend/genre-classifier
         npm install
         npm run build
-        cd ../../..
 
-        docker build -t vasale01/frontend:${IMAGE_TAG} -f app/frontend/Dockerfile .
-        docker push vasale01/frontend:${IMAGE_TAG}
-    
-    - name: Build & push default-backend image
-      #if: ${{ github.event.head_commit.modified && contains(join(github.event.head_commit.modified, ','), 'app/defaultbackend/') }}
+    - name: docker compose build & push
       run: |
-        docker build -t vasale01/defaultbackend:${IMAGE_TAG} -f app/defaultbackend/Dockerfile .
-        docker push vasale01/defaultbackend:${IMAGE_TAG}
+        docker compose build
+        docker compose push
       
-    - name: Build & push nginx image
-      #if: ${{ github.event.head_commit.modified && contains(join(github.event.head_commit.modified, ','), 'nginx/') }}
-      run: |
-        docker build -t vasale01/nginx:${IMAGE_TAG} -f nginx/Dockerfile .
-        docker push vasale01/nginx:${IMAGE_TAG}
-
+      
     - name: set up kubectl
       uses: azure/k8s-set-context@v1
       with: 
