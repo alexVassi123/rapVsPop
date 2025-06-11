@@ -8,14 +8,7 @@ name: Runtime deploy to k3d
 on:
   push:
     branches: [main]
-    paths:
-      - "app/frontend/**"
-      - "app/backend/**"
-      - "app/defaultbackend/**"
-      - "k8s/**"
-      - ".env"
-      - "nginx/**"
-
+  
 
 jobs:
   redeploy:
