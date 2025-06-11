@@ -72,6 +72,9 @@ jobs:
       with: 
         kubeconfig: ${{ secrets.KUBECONFIG }}
 
+    - name: Use genre-cluster namespace
+      run: kubectl config set-context --current --namespace=genre-cluster
+
     - name: Apply updated Kubernetes manifests
       if: needs.filter.outputs.k8s_changed == 'true'
       run: |

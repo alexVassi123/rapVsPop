@@ -75,6 +75,9 @@ jobs:
         uses: azure/k8s-set-context@v1
         with: 
           kubeconfig: ${{ secrets.KUBECONFIG }}
+      
+      - name: Use genre-cluster namespace
+        run: kubectl config set-context --current --namespace=genre-cluster
 
       - name: Deploy to Kubernetes
         run: |
