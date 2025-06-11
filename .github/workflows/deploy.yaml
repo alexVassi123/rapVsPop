@@ -1,7 +1,10 @@
 name: Deploy on Kubernetes
+
 permissions:
   id-token: write
   contents: read
+
+# This workflow is triggered by the completion of the "Retrain Model" workflow.
 
 on:
   workflow_run:
@@ -72,7 +75,7 @@ jobs:
         uses: azure/k8s-set-context@v1
         with: 
           kubeconfig: ${{ secrets.KUBECONFIG }}
-          
+
       - name: Deploy to Kubernetes
         run: |
           kubectl set image deployment/backend-api \
