@@ -8,7 +8,13 @@ name: Runtime deploy to k3d
 on:
   push:
     branches: [main]
-  
+    paths:
+      - "app/frontend/**"
+      - "app/backend/**"
+      - "app/defaultbackend/**"
+      - "k8s/**"
+      - "nginx/**"
+
 
 jobs:
   redeploy:
@@ -36,10 +42,16 @@ jobs:
     - name: Build & push frontend image
     #  if: ${{ github.event.head_commit.modified && contains(join(github.event.head_commit.modified, ','), 'app/frontend/') }}
       run: |
+
+        cd app/frontend/genre-classifier
+        npm install
+        npm run build
+        cd ../../..
+
         docker build -t vasale01/frontend:${IMAGE_TAG} -f app/frontend/Dockerfile .
         docker push vasale01/frontend:${IMAGE_TAG}
     
-    - name: Build & push default backend image
+    - name: Build & push default-backend image
       #if: ${{ github.event.head_commit.modified && contains(join(github.event.head_commit.modified, ','), 'app/defaultbackend/') }}
       run: |
         docker build -t vasale01/defaultbackend:${IMAGE_TAG} -f app/defaultbackend/Dockerfile .
