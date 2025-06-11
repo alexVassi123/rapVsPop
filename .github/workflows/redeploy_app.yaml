@@ -34,7 +34,7 @@ jobs:
     - uses: actions/checkout@v4
     - name: check changed files
       id: filter
-      uses: dorny/path-filter@v2
+      uses: dorny/paths-filter@v3.0.2
       with: 
         
         filters: |
