@@ -50,7 +50,6 @@ async def predict_genre(request: LyricsRequest):
         return {
             "genre": genre,
             "confidence": confidence,
-            "message": "Prediction successful"
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

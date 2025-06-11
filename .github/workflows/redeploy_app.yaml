@@ -55,11 +55,16 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: run npm install & build for frontend
+    - name: Build frontend (only if dist is missing)
       run: |
-        cd app/frontend/genre-classifier
-        npm install
-        npm run build
+        if [ ! -d app/frontend/genre-classifier/dist ]; then
+          echo "dist/ not found,  running npm ci && npm run build"
+          cd app/frontend/genre-classifier
+          npm ci
+          npm run build
+        else
+          echo "dist/ already present, skipping frontend build"
+        fi
 
     - name: docker compose build & push
       run: |

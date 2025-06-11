@@ -33,7 +33,6 @@ export default {
         this.result = response.data.genre;
         this.confidence = Number(response.data.confidence).toFixed(2);
         this.message = response.data.message
-        console.log(response.message);
       } catch (err) {
         this.result = "Error: Could not classify";
         console.error(err);
