@@ -1,4 +1,3 @@
-# This is a basic workflow to help you get started with Actions
 
 name: Retrain Model
 permissions:
@@ -6,9 +5,9 @@ permissions:
   contents: read
 
 
-# Controls when the workflow will run
+
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
+
   push:
     branches: [ "main" ]
     paths:
@@ -20,10 +19,8 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   azure-pipeline:
     runs-on: ubuntu-latest

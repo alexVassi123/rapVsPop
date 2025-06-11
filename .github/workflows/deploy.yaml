@@ -7,19 +7,50 @@ on:
   workflow_run:
     workflows: ["Retrain Model"]
     types:
-      - completed
-  push:
-    branches: [ "main" ]
-    paths:
-      - 'pipelines/**'
-      - 'components/**'
-      - 'environment/**'
-      - '.github/workflows/deploy.yaml'
-      - 'data/**'
+      - ["completed"]
 jobs:
+  download:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    env: 
+      location: westeurope
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }} 
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Azure — Download model
+        uses: azure/cli@v2.1.0
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az extension add --name ml -y
+            az configure --defaults group=${{ secrets.RG }} workspace=${{ secrets.WG}} location=$LOCATION
+
+            VERSION=$(az ml model list -n rap-versus-pop-classifier \
+                      --query "[0].version" -o tsv)
+
+            echo "Found model version: $VERSION"
+
+            az ml model download \
+              -n rap-versus-pop-classifier \
+              -v $VERSION \
+              --download-path inference/rapversus-pop-classifier/best_model.h5
+
+      - name: Upload inference artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: inference-package
+          path: inference   
+
   redeploy:
     runs-on: self-hosted
-#    needs: download
     env: 
       IMAGE_TAG: ${{ github.sha }}
     steps:
@@ -42,9 +73,9 @@ jobs:
         with: 
           kubeconfig: ${{ secrets.KUBECONFIG }}
 
-      - name: apply manifests
-        run: |
-          kubectl apply -f k8s/backend.yaml
+      # - name: apply manifests
+      #   run: |
+      #     kubectl apply -f k8s/backend.yaml
   
       - name: Deploy to Kubernetes
         run: |
