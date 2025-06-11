@@ -34,8 +34,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t vasale01/backend:${{github.sha}} -f ./app/backend/Dockerfile .
-          docker push vasale01/backend:${{github.sha}}
+          docker build -t vasale01/backend:${IMAGE_TAG}} -f ./app/backend/Dockerfile .
+          docker push vasale01/backend:${IMAGE_TAG}}
 
       - name: set up kubectl
         uses: azure/k8s-set-context@v1
