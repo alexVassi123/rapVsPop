@@ -17,6 +17,7 @@ on:
       - "docker-compose.yaml"
       - ".github/workflows/redeploy_app.yaml"
 
+# ────────────────────
 
 jobs:
   redeploy:
