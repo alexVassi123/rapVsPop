@@ -8,6 +8,7 @@
     <p v-if="loading">Loading...</p>
     <p v-if="result">Prediction: <strong>{{ result }}</strong></p>
     <p v-if="result">Confidence: <strong>{{ confidence }}</strong></p>
+    <p>fuck this</p>
   </div>
 </template>
 
