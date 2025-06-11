@@ -51,7 +51,6 @@ jobs:
               -v $VERSION \
               --download-path inference/rapversus-pop-classifier/best_model.h5
             
-            cp inference/rap-versus-pop-classifier/best_model.h5 inference/rap-versus-pop-classifier/model_final.h5
 
       - name: Upload inference artifact
         uses: actions/upload-artifact@v4
