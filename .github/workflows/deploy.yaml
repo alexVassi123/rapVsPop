@@ -18,7 +18,7 @@ on:
       - 'data/**'
 jobs:
   download:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     #needs: azure-pipeline
     env: 
       location: westeurope
@@ -59,7 +59,7 @@ jobs:
           path: inference   
 
   redeploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: download
     env: 
       IMAGE_TAG: ${{ github.sha }}
