@@ -50,6 +50,7 @@ jobs:
             - 'app/defaultbackend/**'
           
   redeploy:
+    needs: filter
     runs-on: self-hosted          
     env:
       IMAGE_TAG: ${{ github.sha }}
