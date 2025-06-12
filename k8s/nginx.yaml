@@ -12,6 +12,8 @@ spec:
       labels:
         app: nginx
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: nginx
           image: vasale01/nginx:latest
